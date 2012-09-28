@@ -27,7 +27,7 @@ sub new_from_hash {
 }
 sub suggestid {
 	my ($self) = @_;
-	my $digest = sha1_hex(join("\n",$self->summary(), $self->content, $self->description, "".rand()));
+	my $digest = sha1_hex(join("\n",($self->summary()||""), ($self->content()||""), ($self->description()||""), "".rand()));
 	return $digest;
 }
 1;

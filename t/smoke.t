@@ -42,4 +42,7 @@ ok(@tasks == 0);
 
 use_ok('Task');
 use Task;
-$database->insert_task( Task->new( summary => "Test 1", description => "Desc of Test 1" ) );
+for (1..10) {
+	$database->insert_task( Task->new( summary => "Test $_", description => "Desc of Test $_" ) );
+}
+
