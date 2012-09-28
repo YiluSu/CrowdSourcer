@@ -47,7 +47,7 @@ sub insert_task {
 				$id = undef;
 			}
 		} until (defined($id));
-		task->id($id);
+		$task->id($id);
 		$db->{$id} = $task->hashify();
 		return (1, $db);
 	});

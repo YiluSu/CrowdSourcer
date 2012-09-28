@@ -1,5 +1,6 @@
 package Task;
 use Moose;
+use Digest::SHA1 qw(sha1_base64);
 
 # unique identifier
 has 'id' => (is => 'rw', isa => 'Str');
@@ -23,5 +24,10 @@ sub hashify {
 sub new_from_hash {
 	my ($class, $h) = @_;
 	return Task->new(%$h);	
+}
+sub suggestid {
+	my ($self) = @_;
+	my $digest = sha1_base64(join("\n",$self->summary(), $self->content, $self->description, "".rand()));
+	return $digest;
 }
 1;
