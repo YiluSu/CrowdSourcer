@@ -1,5 +1,9 @@
 package CommandFactory;
 use Moose;
+use DefaultCommand;
+use PostCommand;
+use RemoveCommand;
+use UpdateCommand;
 
 my %commands = (
 	"" => sub { DefaultCommand->new() },

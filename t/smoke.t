@@ -67,7 +67,20 @@ ok($newtask->content()->{a} eq 'b');
 ok($newtask->content()->{c}->[1] == 2);
 
 # command factory tests
+use CommandFactory;
 use_ok('CommandFactory');
+ok(CommandFactory::defaultCommand()->isa("DefaultCommand"));
+ok(CommandFactory::getCommand("")->isa("DefaultCommand"));
+use DefaultCommand;
+use_ok('DefaultCommand');
+use PostCommand;
+use_ok('PostCommand');
+use RemoveCommand;
+use_ok('RemoveCommand');
+use UpdateCommand;
+use_ok('UpdateCommand');
+use ListCommand;
+use_ok('ListCommand');
 
 END {
 	done_testing();
