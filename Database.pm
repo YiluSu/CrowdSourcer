@@ -1,6 +1,6 @@
 package Database;
 use Moose;
-use DB;
+use MyDB;
 
 sub get_tasks {
 	my ($self) = @_;
@@ -8,12 +8,12 @@ sub get_tasks {
 }
 sub get_single_task {
 	my ($self, $id) = @_;
-	my $db = DB::readDB();
+	my $db = MyDB::readDB();
 	return Task->new_from_hash($db->{$id});
 }
 sub get_last_tasks {
 	my ($self, $n) = @_;
-	my $db = DB::readDB();
+	my $db = MyDB::readDB();
 	my @tasklist = @{ ($db->{_tasklist_} || []) };
 	$n = $n || scalar(@tasklist);
 	my @ids = @tasklist[max(0,$#tasklist - $n) .. $#tasklist];
@@ -37,7 +37,7 @@ sub get_database {
 
 sub insert_task {
 	my ($self, $task) = @_;
-	DB::readWriteDB( sub {
+	MyDB::readWriteDB( sub {
 		my ($db) = @_;
 		my $id = undef;
 		do {
@@ -53,7 +53,7 @@ sub insert_task {
 }
 sub update_task {
 	my ($self, $task) = @_;
-	DB::readWriteDB( sub {
+	MyDB::readWriteDB( sub {
 		my ($db) = @_;
 		$db->{$task->id} = $task->hashify();
 		return (1, $db);
