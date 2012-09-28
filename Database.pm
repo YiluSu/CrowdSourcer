@@ -51,6 +51,7 @@ sub insert_task {
 		$db->{$id} = $task->hashify();
 		return (1, $db);
 	});
+	return $task;
 }
 sub update_task {
 	my ($self, $task) = @_;

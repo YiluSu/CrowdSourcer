@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 9;
+use Test::More; 
 ### database tests
 chdir($ENV{TMP} || $ENV{TMPDIR} || "/tmp");
 unlink('db.json');
@@ -42,7 +42,20 @@ ok(@tasks == 0);
 
 use_ok('Task');
 use Task;
-for (1..10) {
+my @tasks = map {
 	$database->insert_task( Task->new( summary => "Test $_", description => "Desc of Test $_" ) );
+} (1..10);
+foreach my $task (@tasks) {
+	ok($task->id,"tasks id");
+	my $newtask = $database->get_single_task( $task->id);
+	ok($newtask->equals($task),"task equals");
 }
+my @tasks = $database->get_tasks();
+ok(@tasks == 10, "Get tasks");
+my ($task) = $database->get_last_tasks(1);
+ok($tasks[$#tasks]->id eq $task->id);
 
+
+END {
+	done_testing();
+}

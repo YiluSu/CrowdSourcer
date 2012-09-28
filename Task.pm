@@ -30,4 +30,11 @@ sub suggestid {
 	my $digest = sha1_hex(join("\n",($self->summary()||""), ($self->content()||""), ($self->description()||""), "".rand()));
 	return $digest;
 }
+sub equals {
+	my ($self, $other) = @_;
+	return 0 if $self->id ne $other->id;
+	return 0 if $self->description ne $other->description;
+	return 0 if $self->summary ne $other->summary;
+	return 1;
+}
 1;
