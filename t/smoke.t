@@ -53,7 +53,12 @@ foreach my $task (@tasks) {
 my @tasks = $database->get_tasks();
 ok(@tasks == 10, "Get tasks");
 my ($task) = $database->get_last_tasks(1);
-ok($tasks[$#tasks]->id eq $task->id);
+ok($tasks[$#tasks]->id eq $task->id, "last task equal last task ");
+use_ok('TaskLite');
+my @summaries1 = map { $_->summary } $database->get_task_summaries();
+my @summaries2 = map { $_->summary } @tasks;
+ok(join("\n", @summaries1) eq join("\n", @summaries2), "Summaries are the same");
+
 
 
 END {

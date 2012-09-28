@@ -1,8 +1,11 @@
 package TaskLite;
 use Moose;
+use Database;
 
-has 'id' => 'r', isa => 'String';
-has 'summary' => 'r', isa => 'String';
+# unique identifier
+has 'id' => (is => 'rw', isa => 'Str');
+# one line summary
+has 'summary' => ( is => 'rw', isa => 'Str');
 
 sub get_task {
 	my ($self) = @_;

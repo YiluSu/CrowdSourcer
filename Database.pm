@@ -2,6 +2,8 @@ package Database;
 use Moose;
 use MyDB;
 use List::Util qw(max);
+use Task;
+use TaskLite;
 
 sub get_tasks {
 	my ($self) = @_;
@@ -17,7 +19,7 @@ sub get_last_tasks {
 	my $db = MyDB::readDB();
 	my @tasklist = @{ ($db->{_tasklist_} || []) };
 	$n = $n || scalar(@tasklist);
-	my @ids = @tasklist[max(0,$#tasklist - $n) .. $#tasklist];
+	my @ids = @tasklist[max(0,scalar(@tasklist) - $n) .. $#tasklist];
 	my @tasks = map { my $id = $_; Task->new_from_hash( $db->{$id} ) } @ids;
 	return @tasks;
 }
@@ -49,6 +51,9 @@ sub insert_task {
 		} until (defined($id));
 		$task->id($id);
 		$db->{$id} = $task->hashify();
+		my $tl = $db->{_tasklist_} || [];
+		push @$tl, $id;
+		$db->{_tasklist_} = $tl;
 		return (1, $db);
 	});
 	return $task;
