@@ -2,13 +2,13 @@ package Task;
 use Moose;
 
 # unique identifier
-has 'id' => 'r', isa => 'String';
+has 'id' => (is => 'rw', isa => 'String');
 # one line summary
-has 'summary' => 'r', isa => 'String';
+has 'summary' => ( is => 'rw', isa => 'String');
 # long form description
-has 'description' => 'r', isa => 'String';
+has 'description' => (is => 'rw', isa => 'String');
 # content will be free text like json
-has 'content' => 'r', isa => 'String';
+has 'content' => ( is => 'rw', isa => 'String');
 
 
 sub hashify {

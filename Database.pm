@@ -59,3 +59,4 @@ sub update_task {
 		return (1, $db);
 	});
 }
+1;

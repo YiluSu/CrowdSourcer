@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 6;
+use Test::More tests => 9;
 ### database tests
 chdir($ENV{TMP} || $ENV{TMPDIR} || "/tmp");
 unlink('db.json');
@@ -33,4 +33,13 @@ MyDB::readWriteDB( sub {
 $newdata = MyDB::readDB();
 ok(! exists $newdata->{_readWriteDB_test_});
 
+use_ok('Database');
+use Database;
+my $database = Database->new();
 
+my @tasks = $database->get_tasks();
+ok(@tasks == 0);
+
+use_ok('Task');
+use Task;
+$database->insert_task( Task->new( summary => "Test 1", description => "Desc of Test 1" ) );
