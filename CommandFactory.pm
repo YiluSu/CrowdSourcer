@@ -4,12 +4,15 @@ use DefaultCommand;
 use PostCommand;
 use RemoveCommand;
 use UpdateCommand;
+use ErrorCommand;
 
 my %commands = (
 	"" => sub { DefaultCommand->new() },
+	"default" => sub { DefaultCommand->new() },
 	"post"   => sub { PostCommand->new() },
 	"remove" => sub { RemoveCommand->new() },
 	"update" => sub { UpdateCommand->new() },
+	"list" => sub { ListCommand->new() },
 );
 
 sub defaultCommand {

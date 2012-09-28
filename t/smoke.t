@@ -71,6 +71,7 @@ use CommandFactory;
 use_ok('CommandFactory');
 ok(CommandFactory::defaultCommand()->isa("DefaultCommand"));
 ok(CommandFactory::getCommand("")->isa("DefaultCommand"));
+ok(CommandFactory::getCommand("")->execute()->{name} eq 'default');
 use DefaultCommand;
 use_ok('DefaultCommand');
 use PostCommand;
@@ -81,6 +82,19 @@ use UpdateCommand;
 use_ok('UpdateCommand');
 use ListCommand;
 use_ok('ListCommand');
+for my $type (qw( default list )) {
+	ok(CommandFactory::getCommand($type)->execute()->{name} eq $type, "Looking for type $type" );
+}
+ok(CommandFactory::getCommand('post')->execute({
+	summary     => "Summary1",
+	description => "Description",
+	content => "{ 'hmmm':'junk', 'huh':{ 'a':'b', 'b':'c' } }" #json
+})->{name} eq 'post', "Looking for type POST" );
+# post
+# update
+# remove
+
+
 
 END {
 	done_testing();
