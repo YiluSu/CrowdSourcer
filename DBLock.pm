@@ -26,7 +26,8 @@ sub lock {
 sub unlock {
 	my ($self) = @_;
 	$self->SUPER::unlock();
-	close($self->fd);
+	my $fd = $self->fd;
+	close($fd) if $fd;
 	$self->fd(undef);
 }
 1;
