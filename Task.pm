@@ -9,7 +9,7 @@ has 'summary' => ( is => 'rw', isa => 'Str');
 # long form description
 has 'description' => (is => 'rw', isa => 'Str');
 # content will be free text like json
-has 'content' => ( is => 'rw', isa => 'Str');
+has 'content' => ( is => 'rw');
 
 
 sub hashify {
