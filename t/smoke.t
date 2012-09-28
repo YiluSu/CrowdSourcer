@@ -59,12 +59,15 @@ my @summaries1 = map { $_->summary } $database->get_task_summaries();
 my @summaries2 = map { $_->summary } @tasks;
 ok(join("\n", @summaries1) eq join("\n", @summaries2), "Summaries are the same");
 
+# test if we can save hashes and stuff
 my $task = Task->new(content=>{a=>'b','c'=>[1,2,3]});
 $database->insert_task( $task );
 my $newtask = $database->get_single_task( $task->id );
 ok($newtask->content()->{a} eq 'b');
 ok($newtask->content()->{c}->[1] == 2);
 
+# command factory tests
+use_ok('CommandFactory');
 
 END {
 	done_testing();
