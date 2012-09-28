@@ -1,6 +1,7 @@
 package Database;
 use Moose;
 use MyDB;
+use List::Util qw(max);
 
 sub get_tasks {
 	my ($self) = @_;
