@@ -1,6 +1,6 @@
 package Task;
 use Moose;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA1 qw(sha1_hex);
 
 # unique identifier
 has 'id' => (is => 'rw', isa => 'Str');
