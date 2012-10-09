@@ -30,4 +30,7 @@ sub unlock {
     close($fd) if $fd;
     $self->fd(undef);
 }
+sub delete_lock_file {
+    unlink($lockFilename);
+}
 1;

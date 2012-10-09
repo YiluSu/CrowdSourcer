@@ -83,5 +83,9 @@ sub remove_task {
                            return (1, $db);
                        });
 }
+sub nuke {
+    my ($self) = @_;
+    MyDB::reset();
+}
 
 1;

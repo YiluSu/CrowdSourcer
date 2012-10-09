@@ -62,4 +62,9 @@ sub check {
     }
 }
 
+sub reset {
+    MyDB::delete_lock_file();
+    unlink($DBfilename);
+}
+
 1;
