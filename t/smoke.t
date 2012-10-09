@@ -137,6 +137,31 @@ my ($type,$html) = $presenter->present();
 
 ok( $html =~ /hmmm/i, "JSON" );
 
+my $presenter = HTMLPresenter->new( 
+    params => {},
+    result => CommandFactory::getCommand('list')->execute( {} )
+);
+
+
+my ($type, $html) = $presenter->present();
+# warn $type;
+# warn $html;
+ok( $type =~ /json/, "JSON type for list");
+ok( $html =~ /"id"/, "ID in the json");
+
+my $presenter = HTMLPresenter->new( 
+    params => { n=>3 },
+    result => CommandFactory::getCommand('list')->execute( { n=>3 } )
+);
+my ($type, $html) = $presenter->present();
+
+use JSON;
+my $json = decode_json( $html );
+# use Data::Dumper;
+# warn Dumper($json);
+ok( scalar( @$json ) == 3, "JSON decoding");
+
+
 END {
-	done_testing();
+    done_testing();
 }

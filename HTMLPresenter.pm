@@ -12,7 +12,7 @@ sub present {
     my $templatefile = "html/${templatename}.html";
     my $template = HTML::Template->new( filename => $templatefile, die_on_bad_params => 0 );
     $template->param( %$result );
-    my $content_type = "text/html" || $result->{content_type};
+    my $content_type = $result->{content_type} || "text/html" ;
     my $output = $template->output( );
     return ( $content_type, $output );
 }
