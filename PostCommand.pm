@@ -9,8 +9,13 @@ sub execute {
 	my $description = $h->{description} || "";
 	my $content = {};
 	eval {
-		$content = decode_json($h->{content}) || {};
+            if ( $h->{content} ) {
+		$content = decode_json($h->{ content} );
+            }
 	};
+        if ($@) {
+            warn $@;
+        }
 	my $task = Database::get_database()->insert_task( Task->new( summary => $summary, description => $description, content => $content ) );
 	return {
 		name => 'post',

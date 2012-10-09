@@ -96,7 +96,8 @@ for my $type (qw( default list )) {
 ok(CommandFactory::getCommand('post')->execute({
 	summary     => "Summary1",
 	description => "Description",
-	content => "{ 'hmmm':'junk', 'huh':{ 'a':'b', 'b':'c' } }" #json
+        content => '{ "hmmm":"junk", "huh":{ "a":"b", "b":"c" } }' #json
+
 })->{name} eq 'post', "Looking for type POST" );
 # post
 # update
@@ -114,6 +115,27 @@ my $presenter = HTMLPresenter->new(
 my $html = $presenter->present();
 ok( $html =~ /<\/html>/i, "HTML tag" );
 
+# Post content test
+my $result = CommandFactory::getCommand('post')->execute(
+    {
+        summary     => "Summary1",
+        description => "Description",
+        content => '{ "hmmm":"junk", "huh":{ "a":"b", "b":"c" } }' #json
+    }
+);
+
+$presenter = HTMLPresenter->new( 
+    params => {
+        summary     => "Summary1",
+        description => "Description",
+        content => '{ "hmmm":"junk", "huh":{ "a":"b", "b":"c" } }' #json
+    },
+    result => $result,
+);
+
+my ($type,$html) = $presenter->present();
+print "HTML\n$html\n";
+ok( $html =~ /hmmm/i, "JSON" );
 
 END {
 	done_testing();
