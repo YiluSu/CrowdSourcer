@@ -1,0 +1,28 @@
+CrowdSourcer
+============
+
+CrowdSourcer is a tiny webservice consisting of too many lines of code.
+
+It stores JSON chunks, gives them IDs and lets you list and delete them.
+
+You can execute the following actions
+
+* post - create a new entry with a summary description and content field. content must be JSON compliant or empty
+
+* update - update a post identified by an id with summary, description, and content.
+
+* remove - provide a valid id and an entry will be removed.
+
+* list - optional argument n will list n recent items
+
+* get - id argument will allow you retrieve 
+
+* nuke - accompanied by a key "judgedredd" allows you to nuke the database and lockfiles because something messed up, or you did!
+
+Copyright and License
+---------------------
+
+Copyright (c) 2012 Abram Hindle
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
