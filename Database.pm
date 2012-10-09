@@ -70,4 +70,14 @@ sub update_task {
                            return (1, $db);
                        });
 }
+
+sub remove_task {
+    my ($self, $task) = @_;
+    MyDB::readWriteDB( sub {
+                           my ($db) = @_;
+                           delete $db->{$task->id};
+                           return (1, $db);
+                       });
+}
+
 1;
