@@ -9,11 +9,13 @@ sub get_tasks {
     my ($self) = @_;
     return $self->get_last_tasks();
 }
+
 sub get_single_task {
     my ($self, $id) = @_;
     my $db = MyDB::readDB();
     return Task->new_from_hash($db->{$id});
 }
+
 sub get_last_tasks {
     my ($self, $n) = @_;
     my $db = MyDB::readDB();
@@ -23,6 +25,7 @@ sub get_last_tasks {
     my @tasks = map { my $id = $_; Task->new_from_hash( $db->{$id} ) } @ids;
     return @tasks;
 }
+
 sub get_task_summaries {
     my ($self,$n) = @_;
     my @tasks = $self->get_last_tasks($n);
@@ -40,22 +43,23 @@ sub get_database {
 
 sub insert_task {
     my ($self, $task) = @_;
-    MyDB::readWriteDB( sub {
-                           my ($db) = @_;
-                           my $id = undef;
-                           do {
-                               $id = $task->suggestid();
-                               if ($db->{$id}) {
-                                   $id = undef;
-                               }
-                           } until (defined($id));
-                           $task->id($id);
-                           $db->{$id} = $task->hashify();
-                           my $tl = $db->{_tasklist_} || [];
-                           push @$tl, $id;
-                           $db->{_tasklist_} = $tl;
+    MyDB::readWriteDB( 
+                      sub {
+                          my ($db) = @_;
+                          my $id = undef;
+                          do {
+                              $id = $task->suggestid();
+                              if ($db->{$id}) {
+                                  $id = undef;
+                              }
+                          } until (defined($id));
+                          $task->id($id);
+                          $db->{$id} = $task->hashify();
+                          my $tl = $db->{_tasklist_} || [];
+                          push @$tl, $id;
+                          $db->{_tasklist_} = $tl;
                            return (1, $db);
-                       });
+                      });
     return $task;
 }
 sub update_task {
