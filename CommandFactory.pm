@@ -18,6 +18,7 @@ my %commands = (
 sub defaultCommand {
 	return DefaultCommand->new();
 }
+
 sub getCommand {
 	my ($command,@args) = @_;
 	if (exists $commands{$command}) {
@@ -25,4 +26,5 @@ sub getCommand {
 	}
 	return ErrorCommand->new();
 }
+
 1;
