@@ -106,7 +106,7 @@ my $presenter = HTMLPresenter->new(
 );
 
 my $html = $presenter->present();
-ok($html =~ /default/i, "Default");
+ok( $html =~ /default/i, "Default" );
 
 
 END {
