@@ -2,8 +2,8 @@ package HTMLPresenter;
 use Moose;
 use HTML::Template;
 
-has 'result' => ( is => 'r' );
-has 'params' => ( is => 'r' );
+has 'result' => (is => 'rw');
+has 'params' => (is => 'rw');
 
 sub present {
     my ($self) = @_;

@@ -1,7 +1,9 @@
 use strict;
 use Test::More; 
 ### database tests
-chdir($ENV{TMP} || $ENV{TMPDIR} || "/tmp");
+my $tmp = $ENV{TMP} || $ENV{TMPDIR} || "/tmp";
+
+chdir();
 unlink('db.json');
 
 
@@ -94,6 +96,17 @@ ok(CommandFactory::getCommand('post')->execute({
 # update
 # remove
 
+
+use HTMLPresenter;
+use_ok('HTMLPresenter');
+
+my $presenter = HTMLPresenter->new( 
+    params => {},
+    result => CommandFactory::getCommand("default")->execute() 
+);
+
+my $html = $presenter->present();
+ok($html =~ /default/i, "Default");
 
 
 END {
