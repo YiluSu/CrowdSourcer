@@ -12,7 +12,7 @@ sub execute {
         return ErrorCommand->new()->execute({error=>"No Key Provided"});
     }
     if ($key eq $nukeKey) {
-        Database::reset();
+        Database::nuke();
         return { name => "nuke" };
     }
     return ErrorCommand->new()->execute({error=>"Wrong Nuke Key Provided"});
