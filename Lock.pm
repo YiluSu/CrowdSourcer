@@ -6,25 +6,25 @@ has 'locked' => (is => 'rw');
 has 'fd' => (is => 'rw');
 
 sub unlock {
-	my ($self) = @_;
-	if ($self->locked) {
-		my $fd = $self->fd;
-		$self->locked(0);
-		flock($fd, LOCK_UN);
-	}
+    my ($self) = @_;
+    if ($self->locked) {
+        my $fd = $self->fd;
+        $self->locked(0);
+        flock($fd, LOCK_UN);
+    }
 }
 sub lock {
-	my ($self) = @_;
-	if ($self->locked) {
-		return;
-	}
-	my $fd = $self->fd;
-	flock($fd, $self->locktype) or die "Cannot lock file - $!\n";
-	$self->locked(1);
+    my ($self) = @_;
+    if ($self->locked) {
+        return;
+    }
+    my $fd = $self->fd;
+    flock($fd, $self->locktype) or die "Cannot lock file - $!\n";
+    $self->locked(1);
 }
 
 sub DEMOLISH {
-	my ($self) = @_;
-	$self->unlock();
+    my ($self) = @_;
+    $self->unlock();
 }
 1;

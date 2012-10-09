@@ -45,7 +45,7 @@ sub readWriteDB {
         open(my $fd, ">", $DBfilename) or die "Can't open file: $!";
         # print Dumper($data);
         print $fd encode_json( $data );
-		close($fd);
+        close($fd);
     }
     $lock->unlock();
     

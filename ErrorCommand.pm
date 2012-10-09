@@ -3,8 +3,8 @@ use Moose;
 extends 'Command';
 
 sub execute {
-	my ($self) = @_;
-	return { name => 'error' };
+    my ($self) = @_;
+    return { name => 'error' };
 }
 
 1;
