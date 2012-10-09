@@ -1,4 +1,4 @@
-package ListCommand;
+package GetCommand;
 use Moose;
 use Database;
 use ErrorCommand;

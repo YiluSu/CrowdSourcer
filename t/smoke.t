@@ -173,6 +173,8 @@ my $presenter = HTMLPresenter->new(
 my ($type, $html) = $presenter->present();
 ok(decode_json($html)->{summary} eq "update", "Updated");
 
+use_ok("GetCommand");
+
 $params = { id => $task->id };
 my $presenter = HTMLPresenter->new( 
     params => $params,
