@@ -1,6 +1,7 @@
 package UpdateCommand;
 use Moose;
 use ErrorCommand;
+use JSON;
 extends 'Command';
 
 sub execute {

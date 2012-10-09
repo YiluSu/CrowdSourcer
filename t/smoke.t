@@ -153,6 +153,7 @@ my $presenter = HTMLPresenter->new(
     params => { n=>3 },
     result => CommandFactory::getCommand('list')->execute( { n=>3 } )
 );
+
 my ($type, $html) = $presenter->present();
 
 use JSON;
@@ -160,6 +161,28 @@ my $json = decode_json( $html );
 # use Data::Dumper;
 # warn Dumper($json);
 ok( scalar( @$json ) == 3, "JSON decoding");
+
+my ($task) = @tasks;
+$task->summary("update");
+
+my $params = $task->hashify;
+my $presenter = HTMLPresenter->new( 
+    params => $params,
+    result => CommandFactory::getCommand('update')->execute( $params  )
+);
+my ($type, $html) = $presenter->present();
+ok(decode_json($html)->{summary} eq "update", "Updated");
+
+$params = { id => $task->id };
+my $presenter = HTMLPresenter->new( 
+    params => $params,
+    result => CommandFactory::getCommand('get')->execute( $params  )
+);
+my ($type, $html) = $presenter->present();
+ok(decode_json($html)->{summary} eq "update", "retrieved");
+ok(decode_json($html)->{id} eq $task->id, "id retrieved");
+
+
 
 
 END {

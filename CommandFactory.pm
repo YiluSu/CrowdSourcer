@@ -5,6 +5,8 @@ use PostCommand;
 use RemoveCommand;
 use UpdateCommand;
 use ErrorCommand;
+use GetCommand;
+use ListCommand;
 
 my %commands = (
                 "" => sub { DefaultCommand->new() },
@@ -13,6 +15,8 @@ my %commands = (
                 "remove" => sub { RemoveCommand->new() },
                 "update" => sub { UpdateCommand->new() },
                 "list" => sub { ListCommand->new() },
+                "get" => sub { GetCommand->new() },
+ 
                );
 
 sub defaultCommand {

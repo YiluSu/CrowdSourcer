@@ -69,6 +69,7 @@ sub update_task {
                            $db->{$task->id} = $task->hashify();
                            return (1, $db);
                        });
+    return $task;
 }
 
 sub remove_task {
