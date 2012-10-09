@@ -10,7 +10,7 @@ sub present {
     my $result = $self->result;
     my $templatename = $result->{name};
     my $templatefile = "html/${templatename}.html";
-    my $template = HTML::Template->new( filename => $templatefile );
+    my $template = HTML::Template->new( filename => $templatefile, die_on_bad_params => 0 );
     $template->param( %$result );
     my $content_type = "text/html" || $result->{content_type};
     my $output = $template->output( );

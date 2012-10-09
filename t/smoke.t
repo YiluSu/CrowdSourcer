@@ -1,9 +1,15 @@
 use strict;
 use Test::More; 
+use Cwd qw(abs_path);
+
+my $abs_path = abs_path("./html");
+
 ### database tests
 my $tmp = $ENV{TMP} || $ENV{TMPDIR} || "/tmp";
 
 chdir();
+`cp -r $abs_path .`;
+
 unlink('db.json');
 
 
@@ -106,7 +112,7 @@ my $presenter = HTMLPresenter->new(
 );
 
 my $html = $presenter->present();
-ok( $html =~ /default/i, "Default" );
+ok( $html =~ /<\/html>/i, "HTML tag" );
 
 
 END {
