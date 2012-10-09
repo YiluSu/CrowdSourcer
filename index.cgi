@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use CGI;
 use CommandFactory;
+use HTMLPresenter;
 use strict;
 my $cgi = CGI->new();
 
