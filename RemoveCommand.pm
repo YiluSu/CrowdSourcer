@@ -9,7 +9,7 @@ sub execute {
     if (!$id) {
         return ErrorCommand->new()->execute({error=>"No ID Provided"});
     }
-    Database::get_database->remove_task( TaskLite->new( id=>$id) );
+    Database::get_database()->remove_task( TaskLite->new( id=>$id) );
     return {
             name => "remove",
             content_type => "application/json",

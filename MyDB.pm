@@ -4,6 +4,7 @@ use strict;
 use Lock;
 use JSON qw(decode_json encode_json);
 use Data::Dumper;
+use DBLock;
 
 my $DBfilename = "db.json";
 
@@ -33,12 +34,13 @@ sub writeDB {
 sub readWriteDB {
     my ($callback) = @_;
     my $lock = DBLock::EXCLUSIVE();
+    check($DBfilename);
     open(my $fd, "<", $DBfilename) or die "Can't open file: $!";
     # read the file
     local $/;
     my $json_text   = <$fd>;
     close($fd);
-    my $perl_scalar = decode_json( $json_text );
+    my $perl_scalar = ($json_text)?decode_json( $json_text ):{};
     
     my ($ret, $data) = &$callback($perl_scalar);
     if ($ret) {
@@ -49,6 +51,15 @@ sub readWriteDB {
     }
     $lock->unlock();
     
+}
+
+sub check {
+    my ($filename) = @_;
+    unless (-e $filename) {
+        open(my $fd, ">", $filename);
+        
+        close($fd);
+    }
 }
 
 1;

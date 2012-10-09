@@ -76,7 +76,10 @@ sub remove_task {
     my ($self, $task) = @_;
     MyDB::readWriteDB( sub {
                            my ($db) = @_;
-                           delete $db->{$task->id};
+                           my $id = $task->id;
+                           delete $db->{$id};
+                           my @tl = grep { $_ ne $id } @{$db->{_tasklist_}};
+                           $db->{_tasklist_} = \@tl;
                            return (1, $db);
                        });
 }

@@ -9,19 +9,26 @@ sub get_action {
     return $cgi->param("action") || $cgi->url_param("action");
 }
 
-my $command = get_action();
+eval {
 
-my $commandObj = ($command) ? CommandFactory::getCommand( $command )
+    my $command = get_action();
+
+    my $commandObj = ($command) ? CommandFactory::getCommand( $command )
                             : CommandFactory::defaultCommand() ;
 
-my $params = $cgi->Vars;
+    my $params = $cgi->Vars;
 
-my $result = $commandObj->execute($params);
+    my $result = $commandObj->execute($params);
 
-my ($content_type, $content) = 
+    my ($content_type, $content) = 
     HTMLPresenter->new( result => $result, 
                         parameters => $params )->present;
-
-print $cgi->header( -type => $content_type );
-
-print $content;
+    
+    print $cgi->header( -type => $content_type );
+    
+    print $content;
+};
+if ($@) {
+    print $cgi->header( -type => "text/plain" );
+    print $@;
+}
