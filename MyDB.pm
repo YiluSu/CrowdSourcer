@@ -43,7 +43,7 @@ sub readWriteDB {
 	my ($ret, $data) = &$callback($perl_scalar);
 	if ($ret) {
 		open(my $fd, ">", $DBfilename) or die "Can't open file: $!";
-		print Dumper($data);
+		# print Dumper($data);
 		print $fd encode_json( $data );
 		close($fd);
 	}

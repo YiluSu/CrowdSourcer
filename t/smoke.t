@@ -134,7 +134,7 @@ $presenter = HTMLPresenter->new(
 );
 
 my ($type,$html) = $presenter->present();
-print "HTML\n$html\n";
+
 ok( $html =~ /hmmm/i, "JSON" );
 
 END {
