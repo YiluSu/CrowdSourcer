@@ -184,6 +184,15 @@ my ($type, $html) = $presenter->present();
 ok(decode_json($html)->{summary} eq "update", "retrieved");
 ok(decode_json($html)->{id} eq $task->id, "id retrieved");
 
+$params = { id => $task->id };
+my $presenter = HTMLPresenter->new( 
+    params => $params,
+    result => CommandFactory::getCommand('remove')->execute( $params  )
+);
+my ($type, $html) = $presenter->present();
+ok(decode_json($html)->{message} =~ /remove/i, "check if removed remove");
+ok(decode_json($html)->{id} eq $task->id, "id removed");
+
 
 
 

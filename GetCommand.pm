@@ -18,7 +18,7 @@ sub execute {
     return {
             name => 'get',
             content_type => 'application/json',
-            task => encode_json( $task )
+            task => encode_json( $task->hashify )
     };
 }
 
