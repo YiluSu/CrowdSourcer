@@ -7,6 +7,8 @@ use UpdateCommand;
 use ErrorCommand;
 use GetCommand;
 use ListCommand;
+use NukeCommand;
+
 
 my %commands = (
                 "" => sub { DefaultCommand->new() },
@@ -16,6 +18,7 @@ my %commands = (
                 "update" => sub { UpdateCommand->new() },
                 "list" => sub { ListCommand->new() },
                 "get" => sub { GetCommand->new() },
+                "nuke" => sub { NukeCommand->new() },
  
                );
 
