@@ -19,6 +19,46 @@ You can execute the following actions
 
 * nuke - accompanied by a key "judgedredd" allows you to nuke the database and lockfiles because something messed up, or you did!
 
+Examples
+--------
+Given a URL where CrowdSourcer is installed to e.g.:
+URL = http://crowdsourcer.softwareprocess.es/F12/Team1/
+
+Welcome Page (GET)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/
+
+List Entities as JSON (GET)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=list
+
+Insert an Entry (POST)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=post&summary=examplesummary&description=exampledescription
+   * Returns 
+     {"summary":"examplesummary","content":{},"id":"9b42669cb3ba373ff7877ab826984bde4859ccf0","description":"exampledescription"}
+
+Update an Entry:
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=update&summary=updatedsummary&description=updateddescription&id=9b42669cb3ba373ff7877ab826984bde4859ccf0
+   * Result:
+     {"summary":"updatedsummary","content":{},"id":"faccfa7b932f56fc8bcda5bb279cdeee49ef35a7","description":"updateddescription"}
+     
+List Latest Entry as JSON (POST or GET)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=list&n=1
+   * Result:
+     [{"summary":"updatedsummary","id":"faccfa7b932f56fc8bcda5bb279cdeee49ef35a7"}]
+Get an entry (GET)
+
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=get&id=9b42669cb3ba373ff7877ab826984bde4859ccf0
+   * Result: 
+     {"summary":"updatedsummary","content":{},"id":"faccfa7b932f56fc8bcda5bb279cdeee49ef35a7","description":"updateddescription"}
+
+Remove an Entry (POST)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=remove&id=9b42669cb3ba373ff7877ab826984bde4859ccf0
+   * Result:
+     {"id":"faccfa7b932f56fc8bcda5bb279cdeee49ef35a7","message":"removed"}
+
+Nuke EVERYTHING (POST)
+* http://crowdsourcer.softwareprocess.es/F12/Team1/?action=nuke&key=judgedredd
+
+
 Copyright and License
 ---------------------
 
